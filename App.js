@@ -2,17 +2,16 @@ import 'react-native-gesture-handler';
 import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
-import { Provider as PaperProvider } from 'react-native-paper';
 import MainScreen from './src/MainScreen';
 import ComposeScreen from './src/ComposeScreen';
-
-
+import { ApolloProvider } from '@apollo/client';
+import Client from './apollo-client'
 
 const Stack = createStackNavigator();
 
 export default function App() {
   return (
-    <PaperProvider>
+    <ApolloProvider client={Client}>
       <NavigationContainer>
         <Stack.Navigator>
           <Stack.Screen
@@ -31,6 +30,6 @@ export default function App() {
           />                    
         </Stack.Navigator>
       </NavigationContainer>
-    </PaperProvider>
+    </ApolloProvider>
   );
 }
