@@ -1,26 +1,19 @@
 import { View, Text } from 'react-native'
 import client from '../apollo-client'
-import { gql } from '@apollo/client'
+import { gql, useQuery } from '@apollo/client'
 
-async function getData() {
-  const response = await client.query({
-    query: gql`query { privateData }`,
-    fetchPolicy: "network-only"
-  })
-
-  const data = response.data;
-  const errors = response.errors;
-
-  console.log(data, errors)
-  return({data: data, errors: errors})
-}
+const QUERY_STRING = gql`query { privateData }`
 
 export default function MainScreen() {
-  let info = getData()
+  const { loading, error, data } = useQuery(QUERY_STRING)
+  if (loading) { return(<Text>"loading"</Text>)}
+  if (error) { return(<Text>"error"</Text>) }
+
+  console.log(data.privateData)
   
   return (
     <View>
-      <Text>Something</Text>
+      <Text>{data.privateData}</Text>
     </View>
   )
 }
