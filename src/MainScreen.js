@@ -1,5 +1,5 @@
-import { View, Text } from 'react-native'
-import { gql, useQuery } from '@apollo/client'
+import { View, Text } from 'react-native';
+import { gql, useQuery } from '@apollo/client';
 
 const QUERY_STRING = gql`query { privateData }`
 
@@ -9,11 +9,9 @@ export default function MainScreen() {
   if (loading) { return(<Text>"loading"</Text>)}
   if (error) { return(<Text>"error"</Text>) }
 
-  console.log(data.privateData)
-  
   return (
     <View>
-      <Text>{data.privateData}</Text>
+      <Text>bob {data.privateData}</Text>
     </View>
   )
 }
