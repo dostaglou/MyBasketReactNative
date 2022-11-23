@@ -22,7 +22,7 @@ const SignupMutation = gql`
 const handleRejection = (navigation) => {
   return (
     <Modal
-      transparent={ true }
+      transparent={ true } 
       visible={ true }
       animationType="slide"
       onRequestClose={()=>{
