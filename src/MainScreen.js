@@ -3,15 +3,10 @@ import { useQuery } from '@apollo/client';
 import { PrivateDataFetch } from './gql/queries/privateData';
 
 export default function MainScreen({navigation}) {
-  const { loading, error, data } = useQuery(PrivateDataFetch)
-
-  if (loading) { return(<Text>"loading"</Text>)}
-  if (error) { return(<Text>"error"</Text>) }
-
   return (
     <View style={styles.homeScreen}>
-      <Button style={styles.button} title="go to x" onPress={()=> navigation.navigate("Signup")} />
-      <Text style={styles.button}>bob {data.privateData}</Text>
+      <Button style={styles.button} title="Signup" onPress={()=> navigation.navigate("Signup")} />
+      <Button style={styles.button} title="Login" onPress={()=> navigation.navigate("Login")} />
     </View>
   )
 }
