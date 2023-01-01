@@ -1,14 +1,43 @@
-import { View, Text, StyleSheet, Button } from 'react-native';
-import { useQuery } from '@apollo/client';
-import { PrivateDataFetch } from './gql/queries/privateData';
+import { View, StyleSheet, Button } from 'react-native';
+import { useState, useEffect } from 'react';
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
-export default function MainScreen({navigation}) {
+const loggedInView = (navigation) => {
+  return (
+    <View style={styles.homeScreen}>
+      <Button style={styles.button} title="Logout" onPress={()=> navigation.navigate("Logout")} />
+    </View>
+  )
+}
+
+const loggedOutView = (navigation) => {
   return (
     <View style={styles.homeScreen}>
       <Button style={styles.button} title="Signup" onPress={()=> navigation.navigate("Signup")} />
       <Button style={styles.button} title="Login" onPress={()=> navigation.navigate("Login")} />
     </View>
   )
+}
+
+export default function MainScreen({navigation}) {
+  const [loggedIn, setLoggedIn] = useState(false)
+
+  const fetchSession = async () => {
+    const authToken = await AsyncStorage.getItem('@authToken');
+    setLoggedIn(!!authToken)
+  }
+
+  useEffect(() => {
+    navigation.addListener('focus', () => {fetchSession()})
+  }, [navigation])
+
+  console.log(loggedIn)
+
+  if (loggedIn) {
+    return loggedInView(navigation)
+  } else {
+    return loggedOutView(navigation)
+  }
 }
 
 const styles = StyleSheet.create({

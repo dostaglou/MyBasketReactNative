@@ -1,17 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { ApolloProvider } from '@apollo/client';
-import makeApolloClient from './apollo';
-import { Text } from 'react-native'
-import ScreenCase from './src/components/screenCase'
-import LoadingIndicator from './utils/loadingIndicator';
+import makeApolloClient from './utils/apollo';
+import ScreenCase from './src/screens/screenCase'
+import LoadingIndicator from './src/components/loadingIndicator';
 
 const Main = () => {
   const [client, setClient] = useState(null);
 
   const fetchSession = async () => {
     const storedToken = await AsyncStorage.getItem('@authToken');
-    console.log("fetch", storedToken)
+
     const client = makeApolloClient(storedToken);
 
     setClient(client);

@@ -1,10 +1,9 @@
-import React, { useState } from 'react'
-import { SafeAreaView, StyleSheet, TextInput, Button, View, Text, Modal, Alert, ActivityIndicator } from 'react-native'
+import React, { useState, useE } from 'react'
+import { SafeAreaView, StyleSheet, TextInput, Button, View, Text } from 'react-native'
 import { useMutation } from '@apollo/client';
 import { gql } from '@apollo/client'
-import LoadingIndicator from '../../utils/loadingIndicator';
+import LoadingIndicator from '../components/loadingIndicator';
 import AsyncStorage from "@react-native-async-storage/async-storage";
-
 
 const LoginMutation = gql`
   mutation Login($email: String!, $password: String!){
@@ -22,24 +21,21 @@ const LoginMutation = gql`
 const handleAcceptance = (navigation, data) => {
   AsyncStorage.setItem('@authToken', data.login.token);
 
-  return(
-    <View>
-      <Text>Success: {data.login.token}</Text>
-      <Button title="Main Screen" onPress={()=> navigation.navigate("MainScreen")} />
-    </View>
-  )
+  navigation.navigate("MainScreen")
+  
+  return
 }
 
 const Login = ({navigation}) => {
-  const [email, onChangeEmail] = useState("");
-  const [password, onChangePassword] = useState("");
+  const [email, onChangeEmail] = useState("dostaglou@me.co");
+  const [password, onChangePassword] = useState("password");
   const [handleSubmit, { data, loading, error }] = useMutation(
     LoginMutation,
     { variables: { email: email, password: password } }
   )
 
   if (data) { handleAcceptance(navigation, data) }
-  if (loading) { return(<ActivityIndicator />) }
+  if (loading) { return(<LoadingIndicator />) }
 
   return (
     <SafeAreaView>
@@ -54,6 +50,7 @@ const Login = ({navigation}) => {
         onChangeText={onChangePassword}
         value={password}
         placeholder="password"
+        secureTextEntry={true}
       />
       <Button title="Submit" onPress={()=> handleSubmit()} />
     </SafeAreaView>

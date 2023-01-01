@@ -2,8 +2,6 @@ import React, { useState } from 'react'
 import { SafeAreaView, StyleSheet, TextInput, Button, View, Text, Modal, Alert, ActivityIndicator } from 'react-native'
 import { useMutation } from '@apollo/client';
 import { gql } from '@apollo/client'
-import SignupFailedMessageWindow from '../components/SignupFailedMessageWindow'
-// import SignupMutation from '../gql/mutations/signup.js'
 
 const SignupMutation = gql`
   mutation Signup($email: String!, $password: String!, $username: String!){
@@ -22,7 +20,7 @@ const SignupMutation = gql`
 const handleRejection = (navigation) => {
   return (
     <Modal
-      transparent={ true } 
+      transparent={ true }
       visible={ true }
       animationType="slide"
       onRequestClose={()=>{
