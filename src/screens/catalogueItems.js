@@ -34,7 +34,6 @@ const handleData = (catalogueItems) => {
 }
 
 const handleError = (data) => {
-  console.log(data)
   return ( <Text>Error Case</Text>)
 }
 

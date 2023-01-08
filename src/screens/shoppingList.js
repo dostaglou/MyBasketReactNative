@@ -16,6 +16,7 @@ query shoppingListItemSearch($shoppingListId: ID!, $shoppingListItemId: ID){
 }
 `
 const handleData = (shoppingList) => {
+  console.log(shoppingList)
   return(
     <View>
       <Text>Info</Text>
@@ -23,7 +24,7 @@ const handleData = (shoppingList) => {
         data={shoppingList}
         renderItem={({item}) =>
         <View>
-          <Text>ID: {item.id}  Name: {item.name}</Text>
+          <Text>ID: {item.id}  Qty: {item.quantity} Status: {item.status}</Text>
         </View>
       }
       />
@@ -36,7 +37,6 @@ const handleError = (data) => {
 }
 
 const ShoppingList = ({navigation, route}) => {
-  console.log(route.params.shoppingListId)
   const { data, loading, error } = useQuery(
     shoppingListItemQuery,
     {
@@ -45,7 +45,7 @@ const ShoppingList = ({navigation, route}) => {
     }
   )
 
-  if (data) { return handleData(data.shoppingListSearch) }
+  if (data) { return handleData(data.shoppingListItemSearch) }
   if (error) { return handleError(data) }
   if (loading) { return LoadingIndicator() }
 

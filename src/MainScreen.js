@@ -33,8 +33,6 @@ export default function MainScreen({navigation}) {
     navigation.addListener('focus', () => {fetchSession()})
   }, [navigation])
 
-  console.log(loggedIn)
-
   if (loggedIn) {
     return loggedInView(navigation)
   } else {
