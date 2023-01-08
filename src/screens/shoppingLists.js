@@ -1,31 +1,31 @@
 import { useQuery } from "@apollo/client"
 // import React, { useEffect, useState } from "react"
 import { StyleSheet, Text, View, FlatList, Image } from 'react-native'
-import LoadingIndicator from '../components/loadingIndicator'
+import LoadingIndicator from "../components/loadingIndicator"
 import { gql } from '@apollo/client'
 
-
-const catalogueItemSearchQuery = gql`
-  query catalogueItemSearch($catalogueItemId: ID){
-    catalogueItemSearch(catalogueItemId: $catalogueItemId){
-      id
-      userId
-      imageUrl
-      name
-      description
-    }
+const shoppingListsQuery = gql`
+query shoppingListSearch($shoppingListId: ID){
+  shoppingListSearch(shoppingListId: $shoppingListId){
+    __typename
+    id
+    userId
+    name
   }
+}
 `
-const handleData = (catalogueItems) => {
+
+const handleData = (navigation, shoppingLists) => {
   return(
     <View>
       <Text>Info</Text>
       <FlatList
-        data={catalogueItems}
+        data={shoppingLists}
         renderItem={({item}) =>
         <View>
-          <Text>ID: {item.id}  Name: {item.name}</Text>
-          <Image style={styles.logo} source={{uri: item.imageUrl}}/>
+          <Text style={{height: 50}} onPress={() => navigation.navigate('ShoppingList', {shoppingListId: item.id})} >
+            ID: {item.id}  Name: {item.name}
+          </Text>
         </View>
       }
       />
@@ -34,21 +34,19 @@ const handleData = (catalogueItems) => {
 }
 
 const handleError = (data) => {
-  console.log(data)
   return ( <Text>Error Case</Text>)
 }
 
-
-const CatalogueItems = ({navigation}) => {
+const ShoppingLists = ({navigation}) => {
   const { data, loading, error } = useQuery(
-    catalogueItemSearchQuery,
+    shoppingListsQuery,
     {
-      catalogueItemId: null,
+      shoppingListId: null,
       fetchPolicy: 'cache-and-network'
     }
   )
 
-  if (data) { return handleData(data.catalogueItemSearch) }
+  if (data) { return handleData(navigation, data.shoppingListSearch) }
   if (error) { return handleError(data) }
   if (loading) { return LoadingIndicator() }
 
@@ -66,5 +64,18 @@ const styles = StyleSheet.create({
   },
 });
 
+export default ShoppingLists
 
-export default CatalogueItems
+
+
+
+
+
+
+
+
+
+
+
+
+

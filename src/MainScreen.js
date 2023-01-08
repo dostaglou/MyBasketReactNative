@@ -7,6 +7,7 @@ const loggedInView = (navigation) => {
     <View style={styles.homeScreen}>
       <Button style={styles.button} title="Logout" onPress={()=> navigation.navigate("Logout")} />
       <Button style={styles.button} title="Cataglog Items" onPress={()=> navigation.navigate("CatalogueItems")} />
+      <Button style={styles.button} title="Shopping Lists" onPress={()=> navigation.navigate("ShoppingLists")} />
     </View>
   )
 }
