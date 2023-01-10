@@ -1,10 +1,12 @@
 import { View, StyleSheet, Button } from 'react-native';
 import { useState, useEffect } from 'react';
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import Header from './components/logoHeader'
 
 const loggedInView = (navigation) => {
   return (
-    <View style={styles.homeScreen}>
+    <View>
+      <Header />
       <Button style={styles.button} title="Logout" onPress={()=> navigation.navigate("Logout")} />
       <Button style={styles.button} title="Cataglog Items" onPress={()=> navigation.navigate("CatalogueItems")} />
       <Button style={styles.button} title="Shopping Lists" onPress={()=> navigation.navigate("ShoppingLists")} />
@@ -14,7 +16,8 @@ const loggedInView = (navigation) => {
 
 const loggedOutView = (navigation) => {
   return (
-    <View style={styles.homeScreen}>
+    <View>
+      <Header />
       <Button style={styles.button} title="Signup" onPress={()=> navigation.navigate("Signup")} />
       <Button style={styles.button} title="Login" onPress={()=> navigation.navigate("Login")} />
     </View>
