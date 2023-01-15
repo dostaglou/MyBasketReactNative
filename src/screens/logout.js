@@ -10,17 +10,17 @@ const LogoutMutation = gql`
     logout(input: { authToken: $authToken })
   }
 `
-
-const handleAcceptance = (navigation) => {
-  AsyncStorage.removeItem('@authToken')
-  navigation.navigate("MainScreen")
-}
-
 const Logout = ({navigation}) => {
   const [authToken, setAuthToken] = useState(null)
   const [handleSubmit, { data, loading, error }] = useMutation(
     LogoutMutation,
-    { variables: { authToken: authToken } }
+    {
+      variables: { authToken: authToken },
+      onCompleted: async () => {
+        AsyncStorage.removeItem('@authToken')
+        navigation.navigate("MainScreen")
+      }
+    },
   )
 
   useEffect(() => {
@@ -30,9 +30,8 @@ const Logout = ({navigation}) => {
       }
 
       fetchSession();
-  })
+  }, [])
 
-  if (data) { return handleAcceptance(navigation) }
   if (loading) { return(<LoadingIndicator />) }
 
   return(
