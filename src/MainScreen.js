@@ -2,30 +2,31 @@ import { View, StyleSheet, Button } from 'react-native';
 import { useState, useEffect } from 'react';
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import Header from './components/logoHeader'
+import FooterList from './components/footerList';
 
-const loggedInView = (navigation) => {
+const mainScreenView = (buttonArray) => {
   return (
-    <View>
+    <View style={{ height: "100%" }}>
       <Header />
-      <Button style={styles.button} title="Logout" onPress={()=> navigation.navigate("Logout")} />
-      <Button style={styles.button} title="Cataglog Items" onPress={()=> navigation.navigate("CatalogueItems")} />
-      <Button style={styles.button} title="Shopping Lists" onPress={()=> navigation.navigate("ShoppingLists")} />
-    </View>
-  )
-}
-
-const loggedOutView = (navigation) => {
-  return (
-    <View>
-      <Header />
-      <Button style={styles.button} title="Signup" onPress={()=> navigation.navigate("Signup")} />
-      <Button style={styles.button} title="Login" onPress={()=> navigation.navigate("Login")} />
+      <FooterList style={styles.footer} buttonArray={buttonArray}/>
     </View>
   )
 }
 
 export default function MainScreen({navigation}) {
   const [loggedIn, setLoggedIn] = useState(false)
+  const fullButtonOptions = {
+    loggedIn: [
+      { title: "Logout", buttonFunction: () => navigation.navigate("Logout") },
+      { title: "Catalogue", buttonFunction: () => navigation.navigate("CatalogueItems") },
+      { title: "Shopping Lists", buttonFunction: () => navigation.navigate("Logout") }
+    ],
+    notLoggedIn: [
+      { title: "Signup", buttonFunction: () => navigation.navigate("Signup") },
+      { title: "Login", buttonFunction: () => navigation.navigate("Login") }
+    ]
+  }
+  const buttonOptions = (loggedIn) ? fullButtonOptions.loggedIn : fullButtonOptions.notLoggedIn
 
   const fetchSession = async () => {
     const authToken = await AsyncStorage.getItem('@authToken');
@@ -36,25 +37,17 @@ export default function MainScreen({navigation}) {
     navigation.addListener('focus', () => {fetchSession()})
   }, [navigation])
 
-  if (loggedIn) {
-    return loggedInView(navigation)
-  } else {
-    return loggedOutView(navigation)
-  }
+  return mainScreenView(buttonOptions)
 }
 
 const styles = StyleSheet.create({
-  homeScreen: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-    backgroundColor: '#FDD5DF',
-    color: "#BBECFC"
-  },
-  text: {
-    color: "#BBECFC",
-  },
   button: {
-    color: "#8BA7B0"
+    color: "#8BA7B0",
+  },
+  footer: {
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "red",
   }
 })
