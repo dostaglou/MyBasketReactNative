@@ -1,4 +1,4 @@
-import { View, StyleSheet, Button } from 'react-native';
+import { View } from 'react-native';
 import { useState, useEffect } from 'react';
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import Header from './components/logoHeader'
@@ -8,7 +8,7 @@ const mainScreenView = (buttonArray) => {
   return (
     <View style={{ height: "100%" }}>
       <Header />
-      <FooterList style={styles.footer} buttonArray={buttonArray}/>
+      <FooterList buttonArray={buttonArray}/>
     </View>
   )
 }
@@ -39,15 +39,3 @@ export default function MainScreen({navigation}) {
 
   return mainScreenView(buttonOptions)
 }
-
-const styles = StyleSheet.create({
-  button: {
-    color: "#8BA7B0",
-  },
-  footer: {
-    flexDirection: "row",
-    justifyContent: "center",
-    alignItems: "center",
-    backgroundColor: "red",
-  }
-})
