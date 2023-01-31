@@ -66,9 +66,6 @@ const Listing = () => {
   if (error) { return handleError(data) }
   if (loading) { return LoadingIndicator() }
 
-
-
-
   return (
     <ScrollView>
       <View style={styles.container}>
@@ -77,7 +74,8 @@ const Listing = () => {
             return(
               <ShoppingListItem
                 item={item}
-                statusToggle={() => {}}
+                statusToggle={() => { handleStatusToggle(item.id, item.status)}}
+                key={item.id}
               />
             )
           })
