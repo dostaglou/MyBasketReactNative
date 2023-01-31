@@ -41,9 +41,9 @@ const handleAcceptance = (navigation, data) => {
 }
 
 const SignUp = ({navigation}) => {
-  const [username, onChangeUsername] = React.useState("");
-  const [email, onChangeEmail] = React.useState("");
-  const [password, onChangePassword] = React.useState("");
+  const [username, onChangeUsername] = useState("");
+  const [email, onChangeEmail] = useState("");
+  const [password, onChangePassword] = useState("");
   const [handleSubmit, { data, loading, error }] = useMutation(
     SignupMutation,
     { variables: { email: email, password: password, username: username } }

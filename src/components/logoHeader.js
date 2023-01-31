@@ -13,22 +13,21 @@ const Header = () => {
 
 const styles = StyleSheet.create({
   headerBox: {
-    backgroundColor: 'beige',
-    height: 150,
+    backgroundColor: 'transparent',
+    height: 100,
     alignItems: 'center'
   },
   headerLogoCircle: {
     backgroundColor: 'red',
-    borderRadius: 150/2,
-    width: 150,
-    height: 150,
+    borderRadius: 50,
+    width: 100,
+    height: 100,
     justifyContent: 'center'
   },
   headerText: {
     textAlign: 'center',
-    fontSize: 30,
-    backgroundColor: 'transparent',
-    backgroundColor: 'beige'
+    fontSize: 20,
+    backgroundColor: 'lavenderblush'
   }
 })
 

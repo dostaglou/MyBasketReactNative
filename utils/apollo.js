@@ -1,7 +1,7 @@
 
 import { ApolloClient, InMemoryCache } from "@apollo/client";
 
-const externalLink = "f418-240f-65-33a0-1-a12e-45a2-b5de-64b8"
+const externalLink = "d895-240f-65-33a0-1-8869-cefa-2be2-c3d2"
 const url = `https://${externalLink}.jp.ngrok.io/graphql`
 
 const makeApolloClient = (token) => {

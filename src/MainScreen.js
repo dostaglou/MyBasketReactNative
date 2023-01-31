@@ -3,11 +3,13 @@ import { useState, useEffect } from 'react';
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import Header from './components/logoHeader'
 import FooterList from './components/footerList';
+import Listing from './components/shoppingListItems';
 
 const mainScreenView = (buttonArray) => {
   return (
-    <View style={{ height: "100%" }}>
+    <View style={{ height: "100%", backgroundColor: "white" }}>
       <Header />
+      <Listing />
       <FooterList buttonArray={buttonArray}/>
     </View>
   )
