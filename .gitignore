@@ -1,3 +1,5 @@
 .myNotes.md
 .expo/
 node_modules
+.env.development
+.env.production
