@@ -1,5 +1,5 @@
 import { useQuery } from "@apollo/client"
-import { StyleSheet, Text, View, FlatList, Image } from 'react-native'
+import { StyleSheet, Text, View, FlatList } from 'react-native'
 import LoadingIndicator from "../components/loadingIndicator"
 import { gql } from '@apollo/client'
 

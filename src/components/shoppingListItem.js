@@ -1,8 +1,8 @@
-import { useState } from 'react'
 import { Text, StyleSheet, View, Pressable, Button, TouchableOpacity } from 'react-native'
 
 const shoppingListItem = (data, statusToggle) => {
   const item = data.item
+  // TODO: Probably should abstract these out into a kind of global const
   const statusColor = { "pending": "green", "picked_up": "grey" }
   const statusText = { "pending": "Picked Up", "picked_up": "Pickup"}
 
@@ -15,11 +15,11 @@ const shoppingListItem = (data, statusToggle) => {
           <Text>Shopping List: Three</Text>
         </View>
         <TouchableOpacity style={styles.deleteButton} onPress={()=> {}}>
-          <Text style={{color: 'white'}}>X</Text>
+          <Text style={styles.deleteButtonText}>X</Text>
         </TouchableOpacity>
       </Pressable>
-      <View style={[styles.itemContainer, {width: "100%", marginHorizontal: 0}]}>
-        <View style={{flex:1}}>
+      <View style={styles.statusButtonSection}>
+        <View style={styles.statusButton}>
           {/* on tap this geneates TypeError: statusToggle is not a function */}
           <Button color={statusColor[item.status]} title={statusText[item.status]} onPress={()=> { statusToggle(item.status) }}/>
         </View>
@@ -46,6 +46,17 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     margin: 4
+  },
+  deleteButtonText: {
+    color: "white"
+  },
+  statusButtonSection: {
+    width: "100%",
+    marginHorizontal: 0,
+    flexDirection: 'row'
+  },
+  statusButton: {
+    flex: 1
   }
 })
 

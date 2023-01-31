@@ -1,6 +1,5 @@
-import { Text, StyleSheet, ScrollView, View, Pressable, Button, TouchableOpacity } from 'react-native'
-import {  Dimensions } from 'react-native';
-import { useState } from 'react'
+import { StyleSheet, ScrollView, View } from 'react-native'
+import { Dimensions } from 'react-native';
 import { useQuery, useMutation} from '@apollo/client';
 import { gql } from '@apollo/client'
 import LoadingIndicator from './loadingIndicator';

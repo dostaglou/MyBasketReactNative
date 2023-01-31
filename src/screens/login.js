@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { SafeAreaView, StyleSheet, TextInput, Button, View, Text, Alert } from 'react-native'
+import { SafeAreaView, StyleSheet, TextInput, Button } from 'react-native'
 import { useMutation } from '@apollo/client';
 import { gql } from '@apollo/client'
 import LoadingIndicator from '../components/loadingIndicator';
