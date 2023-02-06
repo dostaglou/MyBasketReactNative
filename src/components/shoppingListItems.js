@@ -1,4 +1,4 @@
-import { StyleSheet, ScrollView, View } from 'react-native'
+import { StyleSheet, ScrollView, View, Text } from 'react-native'
 import { Dimensions } from 'react-native';
 import { useQuery, useMutation} from '@apollo/client';
 import { gql } from '@apollo/client'
@@ -26,19 +26,9 @@ const shoppingListItemUpdate = gql`
   }
 `
 
-const handleStatusToggle = (id, currentStatus) => {
-  const statusEnum = {
-    "pending": "picked_up",
-    "picked_up": "pending"
-  }
-
-  const { data, loading, error } = useMutation(
-    shoppingListItemUpdate,
-    { variables: { id: id, status: statusEnum[currentStatus] } }
-  )
-
-  if (loading) { return(LoadingIndicator) }
-  if (data) return(data.shoppingListItemUpdate)
+const statusEnum = {
+  "pending": "picked_up",
+  "picked_up": "pending"
 }
 
 const shoppingListItemSearch = gql`
@@ -55,14 +45,20 @@ const shoppingListItemSearch = gql`
 `
 
 const Listing = () => {
-  const { data, loading, error } = useQuery(
-    shoppingListItemSearch,
-    {
-      fetchPolicy: 'cache-and-network'
-    }
-  )
+  const { data, loading, error } = useQuery(shoppingListItemSearch, { fetchPolicy: 'cache-and-network' })
+  const toggleStatus = (id, currentStatus) => {
+    console.log(id, currentStatus)
+    const { data, loading, error } = useMutation(
+      shoppingListItemUpdate,
+      { variables: { id: id, status: statusEnum[currentStatus] } }
+    )
 
-  if (error) { return handleError(data) }
+    if (loading) { return(LoadingIndicator) }
+    if (error) { return handleError(error) }
+    if (data) return(data.shoppingListItemUpdate)
+  }
+
+  if (error) { return handleError(error) }
   if (loading) { return LoadingIndicator() }
 
   return (
@@ -73,7 +69,7 @@ const Listing = () => {
             return(
               <ShoppingListItem
                 item={item}
-                statusToggle={() => { handleStatusToggle(item.id, item.status)}}
+                statusToggle={() => { toggleStatus(item.id, item.status)}}
                 key={item.id}
               />
             )

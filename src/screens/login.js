@@ -49,7 +49,7 @@ const Login = ({navigation}) => {
         placeholder="password"
         secureTextEntry={true}
       />
-      <Button title="Submit" onPress={()=> handleSubmit()} />
+      <Button title="Submit" onPress={ () => handleSubmit() } />
     </SafeAreaView>
   )
 };

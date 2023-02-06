@@ -1,7 +1,6 @@
 import { Text, StyleSheet, View, Pressable, Button, TouchableOpacity } from 'react-native'
 
-const shoppingListItem = (data, statusToggle) => {
-  const item = data.item
+const shoppingListItem = ({item, statusToggle}) => {
   // TODO: Probably should abstract these out into a kind of global const
   const statusColor = { "pending": "green", "picked_up": "grey" }
   const statusText = { "pending": "Picked Up", "picked_up": "Pickup"}
@@ -20,8 +19,7 @@ const shoppingListItem = (data, statusToggle) => {
       </Pressable>
       <View style={styles.statusButtonSection}>
         <View style={styles.statusButton}>
-          {/* on tap this geneates TypeError: statusToggle is not a function */}
-          <Button color={statusColor[item.status]} title={statusText[item.status]} onPress={()=> { statusToggle(item.status) }}/>
+          <Button color={statusColor[item.status]} title={statusText[item.status]} onPress={statusToggle}/>
         </View>
       </View>
     </View>
